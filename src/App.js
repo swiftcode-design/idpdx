@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import NavBar from './components/NavBar'
+import Home from './views/Home'
+
 import './App.css';
 
+function Wrapper(props){
+  return (
+    <div>
+      <NavBar />
+      {/* <BrowserRouter> */}
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About}></Route>
+        </Switch>
+      {/* </BrowserRouter> */}
+    </div>
+  )
+}
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">iDrive PDX</h1>
-        </header>
-        <p className="App-intro">
-          dealer website
-        </p>
-      </div>
+      <BrowserRouter>
+        <Route path="/" component={Wrapper}/>
+      </BrowserRouter>
     );
   }
 }
 
 export default App;
+
+function About(){
+  return (
+    <p>about</p>
+  )
+}
