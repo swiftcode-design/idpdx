@@ -40,15 +40,15 @@ function NavBar() {
         <div className="bottom-navbar">
           <ul className="bottom-nav-ul">
             {menu.map((li,idx) => {
+              const title = (li.title === "HOME" ? "/" : ("/" + li.title.toLowerCase().split(" ").join("")): "")
               return(
                 <li key={idx} className="bottom-nav-li">
-                  <NavLink
+                  <NavLink exact
                     activeStyle={{background: "#209DD7", color: "white"}}
-                    to={"/" + li.title.toLowerCase().split(" ").join("")}>{li.title}</NavLink>
+                    to={title}>{li.title}</NavLink>
                 </li>
               )
             })}
-
           </ul>
           <div>
             {/* other stuff */}
