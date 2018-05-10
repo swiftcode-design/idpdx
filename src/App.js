@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
 import About from './views/About'
@@ -29,9 +30,11 @@ function Wrapper(props){
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Route path="/" component={Wrapper}/>
-      </BrowserRouter>
+      <MuiThemeProvider>
+        <BrowserRouter>
+          <Route path="/" component={Wrapper}/>
+        </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }

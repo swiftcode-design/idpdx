@@ -1,5 +1,7 @@
-@import '~antd/dist/antd.css';
-
+body{
+  background: #E9E9E9;
+  font-family: Roboto;
+}
 .App {
   text-align: center;
 }

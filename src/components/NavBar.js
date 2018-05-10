@@ -1,62 +1,166 @@
-import React from 'react'
-import { Affix, Icon } from 'antd'
+import React, { Component } from 'react'
 import {NavLink} from 'react-router-dom'
+import styled from 'styled-components'
+import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon'
+import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
 import logo from '../sample_logo.PNG'
-import './../styles/navbar.css'
 
-function NavBar() {
-  const menu = [
-    {title: "HOME", list: []},
-    {title: "ABOUT US", list: []},
-    {title: "SERVICES", list: ["Location", "Sales"]},
-    {title: "SHOWROOM", list: []},
-    {title: "CONTACT US", list: []}
-  ]
+const NavigationContainer = styled.nav`
+  position: fixed;
+  width: 100%;
+  background: white;
+  height: 100px;
+`
+const ContactNaviagation = styled.div`
+  background: black;
+  color: white;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+`
+const HoursP = styled.p`
+  color: #575757;
+  span{
+    color:white;
+  }
+`
+const ContactIcon = styled.i`
+  background: black;
+  padding: 5px 10px;
+  :hover{
+    background: #3B5998;
+  }
+`
+const SiteNavigation = styled.div`
+  position: relative;
+  background: white;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media(max-width: 1000px){
+    justify-content: flex-end;
+    margin-right: 50px;
+  }
+  @media(max-width: 790px){
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-right: 0;
+  }
+  ul{
+    display: flex;
+    li{
+      a{
+        color: #ADADAD;
+        padding: 20px;
+        @media(max-width: 1000px){
+          padding: 15px 20px;
+        }
+      }
+    }
+    @media (max-width: 790px){
+      display: none;
+    }
+  }
+  img{
+    position: absolute;
+    width: 130px;
+    height: 70px;
+    left: 100px;
+    @media (max-width: 1150px){
+      left: 10px;
+    }
+    @media(max-width: 790px){
+      position: static;
+    }
+  }
+`
+const SiteMobileNavigation = styled.div`
+  display: none;
+  position: relative;
+  @media(max-width: 790px){
+    display: flex;
+  }
+`
+const MenuIcon = styled.i`
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const menu = [
+  {title: "HOME", list: []},
+  {title: "ABOUT US", list: []},
+  {title: "SERVICES", list: ["Location", "Sales"]},
+  {title: "SHOWROOM", list: []},
+  {title: "CONTACT US", list: []}
+]
+class NavBar extends Component{
+  state = {open: false}
+  toggle = () => {
+    this.setState({ open: !this.state.open })
+  }
 
-  return (
-    <nav >
-      <div className="top-navbar">
-        <img alt="company logo" style={{width: "150px",height: "90px", borderRadius: "50%"}} src={logo}></img>
-        <div style={{display: "flex"}}>
-          <Icon style={{fontSize: 40, color: "#209DD7", marginRight: 25}} type="compass" />
-          <h5 style={{color: "white", lineHeight: "18px", fontSize: "12px"}}>2925 SE 131ST AVE <br></br> Portland, OR 97236</h5>
-          <Icon style={{fontSize: 40, color: "#209DD7", marginRight: 25, marginLeft: 25}} type="phone" />
-          <h5 style={{color: "white", paddingRight: "25px"}}>
-            <span style={{color: "#209DD7"}}>CONTACT</span>
-            <br/>
-            <a style={{color: "white", fontSize: "20px"}} href="tel:503-560-0935">(503) 560-0935</a>
-          </h5>
-          <ul style={{display: "flex"}}>
-            {["facebook", "instagram", "mail"].map((soc,idx) => (
-              <li key={idx}>
-                <Icon type={soc}
-                  style={{fontSize: 20, margin: 12, padding: 7, color: "white", border: "solid 1px black", background: "#2F3234", borderRadius: "50%"}} />
-              </li>
-            ))}
-          </ul>
-        </div>
+  render(){
+    return (
+      <div style={{height: "100px"}}>
+        <NavigationContainer >
+          <ContactNaviagation>
+            <section>
+              <HoursP>OPENING HOURS MON-SUN<span>10AM - 9PM</span></HoursP>
+            </section>
+            <section>
+              <ContactIcon className="material-icons md-48">email</ContactIcon>
+              <ContactIcon className="material-icons md-48">phone</ContactIcon>
+            </section>
+          </ContactNaviagation>
+          <SiteNavigation>
+            <img alt="company logo" src={logo}></img>
+            <ul>
+              {menu.map((li,idx) => {
+                const title = (li.title === "HOME" ? "/" : ("/" + li.title.toLowerCase().split(" ").join("")): "")
+                return(
+                  <li>
+                    <NavLink exact
+                      style={{ textDecoration: "none" }}
+                      activeStyle={{background: "#209DD7", color: "white"}}
+                      to={title}>{li.title}</NavLink>
+                  </li>
+                )
+              })}
+            </ul>
+            <SiteMobileNavigation>
+              <Drawer  openSecondary={true} open={this.state.open}>
+                {menu.map((li,idx) => {
+                  const title = (li.title === "HOME" ? "/" : ("/" + li.title.toLowerCase().split(" ").join("")): "")
+                  return(
+                    <MenuItem style={{margin: "20px 0"}} onClick={ this.toggle }>
+                      <NavLink exact
+                        style={{ textDecoration: "none", color: "#209DD7" }}
+                        activeStyle={{ color: "#209DD7", fontSize: "30px"}}
+                        to={title}>{li.title}</NavLink>
+                    </MenuItem>
+                  )
+                })}
+                <MenuItem>
+                  <MenuIcon onClick={ this.toggle } className="material-icons md-48" >close</MenuIcon>
+              </MenuItem>
+              {/* <MenuItem> */}
+                <img style={{height: "160px", width: "180px", position: "absolute", bottom: "12%", left: "40px"}} src={logo} />
+              {/* </MenuItem> */}
+              </Drawer>
+              <MenuIcon className="material-icons md-48" onClick={this.toggle} >menu</MenuIcon>
+            </SiteMobileNavigation>
+          </SiteNavigation>
+        </NavigationContainer>
       </div>
-      <Affix>
-        <div className="bottom-navbar">
-          <ul className="bottom-nav-ul">
-            {menu.map((li,idx) => {
-              const title = (li.title === "HOME" ? "/" : ("/" + li.title.toLowerCase().split(" ").join("")): "")
-              return(
-                <li key={idx} className="bottom-nav-li">
-                  <NavLink exact
-                    activeStyle={{background: "#209DD7", color: "white"}}
-                    to={title}>{li.title}</NavLink>
-                </li>
-              )
-            })}
-          </ul>
-          <div>
-            {/* other stuff */}
-          </div>
-        </div>
-      </Affix>
-    </nav>
-  )
+    )
+  }
 }
 
 export default NavBar
