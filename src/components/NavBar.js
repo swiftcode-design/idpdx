@@ -27,6 +27,9 @@ const HoursP = styled.p`
   span{
     color:white;
   }
+  @media(max-width: 400px){
+    font-size: 12px;
+  }
 `
 const ContactIcon = styled.i`
   background: black;
@@ -51,6 +54,7 @@ const SiteNavigation = styled.div`
     padding: 0 40px;
     margin-right: 0;
   }
+
   ul{
     display: flex;
     li{
@@ -85,7 +89,21 @@ const SiteMobileNavigation = styled.div`
   @media(max-width: 790px){
     display: flex;
   }
+  img {
+    height: 160px;
+    width: 180px;
+    position: absolute;
+    bottom: 12%;
+    left: 40px;
+    @media(max-width: 400px){
+      height: 100px;
+      width: 80px;
+      left: 35%;
+      bottom: 5%;
+    }
+  }
 `
+
 const MenuIcon = styled.i`
   font-size: 40px;
   cursor: pointer;
@@ -150,9 +168,7 @@ class NavBar extends Component{
                 <MenuItem>
                   <MenuIcon onClick={ this.toggle } className="material-icons md-48" >close</MenuIcon>
               </MenuItem>
-              {/* <MenuItem> */}
-                <img style={{height: "160px", width: "180px", position: "absolute", bottom: "12%", left: "40px"}} src={logo} />
-              {/* </MenuItem> */}
+              <img src={logo} />
               </Drawer>
               <MenuIcon className="material-icons md-48" onClick={this.toggle} >menu</MenuIcon>
             </SiteMobileNavigation>
