@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
-import logo from '../sample_logo.PNG'
+import Logo from '../components/Logo'
 
 const NavigationContainer = styled.nav`
   position: fixed;
@@ -138,11 +138,11 @@ class NavBar extends Component{
             </section>
           </ContactNaviagation>
           <SiteNavigation>
-            <img alt="company logo" src={logo}></img>
+            <Logo />
             <ul>
               {menu.map((li,idx) => {
                 const title = (li.title === "HOME" ? "/" : ("/" + li.title.toLowerCase().split(" ").join("")): "")
-                return(
+                return (
                   <li>
                     <NavLink exact
                       style={{ textDecoration: "none" }}
@@ -168,7 +168,7 @@ class NavBar extends Component{
                 <MenuItem>
                   <MenuIcon onClick={ this.toggle } className="material-icons md-48" >close</MenuIcon>
               </MenuItem>
-              <img src={logo} />
+              <Logo />
               </Drawer>
               <MenuIcon className="material-icons md-48" onClick={this.toggle} >menu</MenuIcon>
             </SiteMobileNavigation>
